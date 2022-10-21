@@ -3,11 +3,8 @@ let arrayJson = JSON.parse(
   '[{"id":14, "modelo":"Ferrari F100", "anoFab":1998, "velMax":400, "cantPue":2, "cantRue":4},{"id":51, "modelo":"Dodge Viper", "anoFab":1991, "velMax":266, "cantPue":2, "cantRue":4},{"id":67, "modelo":"Boeing CH-47 Chinook","anoFab":1962, "velMax":302, "altMax":6, "autonomia":1200},{"id":666, "modelo":"Aprilia RSV 1000 R","anoFab":2004, "velMax":280, "cantPue":0, "cantRue":2},{"id":872, "modelo":"Boeing 747-400", "anoFab":1989,"velMax":988, "altMax":13, "autonomia":13450},{"id":742, "modelo":"Cessna CH-1 SkyhookR", "anoFab":1953,"velMax":174, "altMax":3, "autonomia":870}]'
 );
 let arrayVehiculos = [];
-
-//Variables
 let formularioVisible = true;
 
-//Selectores
 const body = document.querySelector("body");
 const checkBoxList = document.querySelectorAll("input[type=checkbox]");
 const comboBox = document.getElementById("select_filtro");
@@ -21,7 +18,6 @@ const botonEliminar = document.getElementById("eliminar_btn");
 const botonCancelar = document.getElementById("cancelar_btn");
 const etiquetaError = document.getElementById("mensaje_error");
 
-//Asignacion de listeners
 window.addEventListener("load", CargaInformacionJSON);
 window.addEventListener("load", CargarTablas);
 comboBox.addEventListener("change", CargarTablas);
@@ -35,7 +31,6 @@ botonAlta.addEventListener("click", AltaModificacion);
 botonModificar.addEventListener("click", AltaModificacion);
 botonEliminar.addEventListener("click", EliminarRegistro);
 
-//Métodos automaticos
 function CargaInformacionJSON() {
   arrayJson.forEach((element) => {
     if (element.hasOwnProperty("altMax")) {
@@ -63,8 +58,6 @@ function CargaInformacionJSON() {
   FiltrarColumnas();
   MostrarOcultarForm();
 }
-
-//ABM
 
 function ValidarCampos(
   id,
@@ -100,16 +93,6 @@ function ValidarCampos(
   }
 
   if (comboBoxAlta.value == "aereo") {
-    /* if (alterEgo == "" || !isNaN(alterEgo)) {
-      etiquetaError.style.display = "flex";
-      etiquetaError.innerText = "Revisar el alter ego";
-      return false;
-    }
-    if (ciudad == "" || !isNaN(ciudad)) {
-      etiquetaError.style.display = "flex";
-      etiquetaError.innerText = "Revisar la ciudad";
-      return false;
-    } */
     if (altMax < 1940 || isNaN(altMax)) {
       etiquetaError.style.display = "flex";
       etiquetaError.innerText = "Altura Maxima debe ser mayor a 0";
@@ -121,11 +104,6 @@ function ValidarCampos(
       return false;
     }
   } else {
-    /*  if (enemigo == "" || !isNaN(enemigo)) {
-      etiquetaError.style.display = "flex";
-      etiquetaError.innerText = "Revisar el enemigo";
-      return false;
-    } */
     if (cantPue < 0 || isNaN(cantPue)) {
       etiquetaError.style.display = "flex";
       etiquetaError.innerText = "Cantidad de Puertas erronea";
@@ -175,8 +153,6 @@ function AltaModificacion() {
   let altMax = parseInt(document.getElementById("input_altMax").value);
   let autonomia = parseInt(document.getElementById("input_autonomia").value);
   let cantPue = parseInt(document.getElementById("input_cantPue").value);
-  /*  let enemigo = document.getElementById("input_enemigo").value;
-  let robos = document.getElementById("input_robos").value; */
   let cantRue = parseInt(document.getElementById("input_cantRue").value);
 
   if (
@@ -268,10 +244,8 @@ function AbrirFormModificacion(e) {
   document.getElementById("input_velMax").value = fila.cells[3].innerText;
   document.getElementById("input_altMax").value = fila.cells[4].innerText;
   document.getElementById("input_autonomia").value = fila.cells[5].innerText;
-  //document.getElementById("input_publicacion").value = fila.cells[6].innerText;
   document.getElementById("input_cantPue").value = fila.cells[7].innerText;
   document.getElementById("input_cantRue").value = fila.cells[8].innerText;
-  //document.getElementById("input_asesinatos").value = fila.cells[9].innerText;
   botonAlta.style.display = "none";
   botonCancelar.style.display = "none";
   botonModificar.style.display = "inherit";
@@ -286,20 +260,17 @@ function CrearRegistros(element) {
   let celdaVelMax = document.createElement("td");
   let celdaAltMax = document.createElement("td");
   let celdaAutonomia = document.createElement("td");
-  //let celdaPublicado = document.createElement("td");
   let celdaCantPue = document.createElement("td");
   let celdaCantRue = document.createElement("td");
-  //let celdaAsesinatos = document.createElement("td");
+
   filaTabla.appendChild(celdaId);
   filaTabla.appendChild(celdaModelo);
   filaTabla.appendChild(celdaAnoFab);
   filaTabla.appendChild(celdaVelMax);
   filaTabla.appendChild(celdaAltMax);
   filaTabla.appendChild(celdaAutonomia);
-  //filaTabla.appendChild(celdaPublicado);
   filaTabla.appendChild(celdaCantPue);
   filaTabla.appendChild(celdaCantRue);
-  //filaTabla.appendChild(celdaAsesinatos);
   filaTabla.addEventListener("dblclick", AbrirFormModificacion);
 
   celdaId.innerText = element.id;
@@ -309,14 +280,10 @@ function CrearRegistros(element) {
   celdaAltMax.innerText = element instanceof Aereo ? element.altMax : "-------";
   celdaAutonomia.innerText =
     element instanceof Aereo ? element.autonomia : "-------";
-  /* celdaPublicado.innerText =
-    element instanceof Aereo ? element.publicado : "-------"; */
   celdaCantPue.innerText =
     element instanceof Terrestre ? element.cantPue : "-------";
   celdaCantRue.innerText =
     element instanceof Terrestre ? element.cantPue : "-------";
-  /*  celdaAsesinatos.innerText =
-    element instanceof Villano ? element.asesinatos : "-------"; */
 
   celdaId.classList.add("id");
   celdaModelo.classList.add("modelo");
@@ -324,10 +291,8 @@ function CrearRegistros(element) {
   celdaVelMax.classList.add("velMax");
   celdaAltMax.classList.add("altMax");
   celdaAutonomia.classList.add("autonomia");
-  //celdaPublicado.classList.add("publicado");
   celdaCantPue.classList.add("cantPue");
   celdaCantRue.classList.add("cantRue");
-  //celdaAsesinatos.classList.add("asesinatos");
 
   tablaInformacion.appendChild(filaTabla);
 }
@@ -340,10 +305,8 @@ function CargarTitulos() {
   let celdaVelMax = document.createElement("th");
   let celdaAltMax = document.createElement("th");
   let celdaAutonomia = document.createElement("th");
-  //let celdaPublicado = document.createElement("th");
   let celdaCantPue = document.createElement("th");
   let celdaCantRue = document.createElement("th");
-  //let celdaAsesinatos = document.createElement("th");
 
   filaTitulos.appendChild(celdaId);
   filaTitulos.appendChild(celdaModelo);
@@ -351,10 +314,8 @@ function CargarTitulos() {
   filaTitulos.appendChild(celdaVelMax);
   filaTitulos.appendChild(celdaAltMax);
   filaTitulos.appendChild(celdaAutonomia);
-  //filaTitulos.appendChild(celdaPublicado);
   filaTitulos.appendChild(celdaCantPue);
   filaTitulos.appendChild(celdaCantRue);
-  // filaTitulos.appendChild(celdaAsesinatos);
 
   celdaId.classList.add("id");
   celdaModelo.classList.add("modelo");
@@ -362,21 +323,17 @@ function CargarTitulos() {
   celdaVelMax.classList.add("velMax");
   celdaAltMax.classList.add("altMax");
   celdaAutonomia.classList.add("autonomia");
-  //celdaPublicado.classList.add("publicado");
   celdaCantPue.classList.add("cantPue");
   celdaCantRue.classList.add("cantRue");
-  // celdaAsesinatos.classList.add("asesinatos");
 
   celdaId.innerText = "ID";
   celdaModelo.innerText = "modelo";
-  celdaAnoFab.innerText = "AnoFab";
+  celdaAnoFab.innerText = "anoFab";
   celdaVelMax.innerText = "velMax";
-  celdaAltMax.innerText = "AltMax";
+  celdaAltMax.innerText = "altMax";
   celdaAutonomia.innerText = "autonomia";
-  // celdaPublicado.innerText = "Publicado";
   celdaCantPue.innerText = "cantPue";
   celdaCantRue.innerText = "cantRue";
-  // celdaAsesinatos.innerText = "Asesinatos";
 
   tablaInformacion.appendChild(filaTitulos);
   let titulosColumnas = document.querySelectorAll("th");
@@ -385,7 +342,6 @@ function CargarTitulos() {
   });
 }
 
-//Calculos
 function CalcularVelocidadPromedio() {
   let acumulador = 0;
   let arrayFiltrado = arrayVehiculos.filter((element) =>
@@ -400,7 +356,6 @@ function CalcularVelocidadPromedio() {
   ).toFixed(2);
 }
 
-//Ordenamiento
 function OrdenarColumnas(e) {
   let criterio = e.currentTarget.innerText;
   criterio = criterio.toLowerCase();
@@ -414,32 +369,19 @@ function OrdenarColumnas(e) {
         a.modelo > b.modelo ? 1 : b.modelo > a.modelo ? -1 : 0
       );
       break;
+
     case "anoFab":
       arrayVehiculos = arrayVehiculos.sort((a, b) => a.anoFab - b.anoFab);
-      // a.anoFab > b.anoFab ? 1 : b.anoFab > a.anoFab ? -1 : 0
-      //);
       break;
     case "velMax":
       arrayVehiculos = arrayVehiculos.sort((a, b) => a.velMax - b.velMax);
       break;
     case "altMax":
       arrayVehiculos = arrayVehiculos.sort((a, b) => a.altMax - b.altMax);
-      /*  a.alterEgo > b.alterEgo ? 1 : b.alterEgo > a.alterEgo ? -1 : 0
-      ); */
       break;
     case "autonomia":
       arrayVehiculos = arrayVehiculos.sort((a, b) => a.autonomia - b.autonomia);
-      /*  a.ciudad > b.ciudad ? 1 : b.ciudad > a.ciudad ? -1 : 0
-      ); */
       break;
-    /*   case "publicado":
-      arrayVehiculos = arrayVehiculos.sort((a, b) => a.publicado - b.publicado);
-      break; */
-    /*  case "enemigo":
-      arrayVehiculos = arrayVehiculos.sort((a, b) =>
-        a.enemigo > b.enemigo ? 1 : b.enemigo > a.enemigo ? -1 : 0
-      );
-      break; */
     case "cantPue":
       arrayVehiculos = arrayVehiculos.sort((a, b) => a.cantPue - b.cantPue);
       break;
@@ -479,18 +421,14 @@ function FiltrarColumnas() {
   document
     .querySelectorAll(".autonomia")
     .forEach((a) => (a.style.display = "none"));
-  /*  document
-    .querySelectorAll(".publicado")
-    .forEach((a) => (a.style.display = "none")); */
+
   document
     .querySelectorAll(".cantPue")
     .forEach((a) => (a.style.display = "none"));
   document
     .querySelectorAll(".cantRue")
     .forEach((a) => (a.style.display = "none"));
-  /*  document
-    .querySelectorAll(".asesinatos")
-    .forEach((a) => (a.style.display = "none")); */
+
   let checkBoxChecked = document.querySelectorAll(
     "input[type=checkbox]:checked"
   );
@@ -519,10 +457,7 @@ function FiltrarColumnas() {
       document
         .querySelectorAll(".autonomia")
         .forEach((a) => (a.style.display = "inline-block"));
-    /*  if (element.value == "publicado")
-      document
-        .querySelectorAll(".publicado")
-        .forEach((a) => (a.style.display = "inline-block")); */
+
     if (element.value == "cantPue")
       document
         .querySelectorAll(".cantPue")
@@ -531,14 +466,8 @@ function FiltrarColumnas() {
       document
         .querySelectorAll(".cantRue")
         .forEach((a) => (a.style.display = "inline-block"));
-    /*  if (element.value == "asesinatos")
-      document
-        .querySelectorAll(".asesinatos")
-        .forEach((a) => (a.style.display = "inline-block")); */
   });
 }
-
-//Mostrar Ocultar
 
 function MostrarOcultarForm() {
   if (formularioVisible) {
