@@ -328,7 +328,7 @@ function CargarTitulos() {
 
   celdaId.innerText = "ID";
   celdaModelo.innerText = "modelo";
-  celdaAnoFab.innerText = "anoFab";
+  celdaAnoFab.innerText = "AnoFab";
   celdaVelMax.innerText = "velMax";
   celdaAltMax.innerText = "altMax";
   celdaAutonomia.innerText = "autonomia";
@@ -369,23 +369,22 @@ function OrdenarColumnas(e) {
         a.modelo > b.modelo ? 1 : b.modelo > a.modelo ? -1 : 0
       );
       break;
-
-    case "anoFab":
+    case "anofab":
       arrayVehiculos = arrayVehiculos.sort((a, b) => a.anoFab - b.anoFab);
       break;
-    case "velMax":
+    case "velmax":
       arrayVehiculos = arrayVehiculos.sort((a, b) => a.velMax - b.velMax);
       break;
-    case "altMax":
+    case "altmax":
       arrayVehiculos = arrayVehiculos.sort((a, b) => a.altMax - b.altMax);
       break;
     case "autonomia":
       arrayVehiculos = arrayVehiculos.sort((a, b) => a.autonomia - b.autonomia);
       break;
-    case "cantPue":
+    case "cantpue":
       arrayVehiculos = arrayVehiculos.sort((a, b) => a.cantPue - b.cantPue);
       break;
-    case "cantRue":
+    case "cantrue":
       arrayVehiculos = arrayVehiculos.sort((a, b) => a.cantRue - b.cantRue);
       break;
   }
