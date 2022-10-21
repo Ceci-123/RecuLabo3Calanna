@@ -335,48 +335,48 @@ function CrearRegistros(element) {
 function CargarTitulos() {
   let filaTitulos = document.createElement("tr");
   let celdaId = document.createElement("th");
-  let celdaNombre = document.createElement("th");
-  let celdaApellido = document.createElement("th");
-  let celdaEdad = document.createElement("th");
-  let celdaAlterEgo = document.createElement("th");
-  let celdaCiudad = document.createElement("th");
-  let celdaPublicado = document.createElement("th");
-  let celdaEnemigo = document.createElement("th");
-  let celdaRobos = document.createElement("th");
-  let celdaAsesinatos = document.createElement("th");
+  let celdaModelo = document.createElement("th");
+  let celdaAnoFab = document.createElement("th");
+  let celdaVelMax = document.createElement("th");
+  let celdaAltMax = document.createElement("th");
+  let celdaAutonomia = document.createElement("th");
+  //let celdaPublicado = document.createElement("th");
+  let celdaCantPue = document.createElement("th");
+  let celdaCantRue = document.createElement("th");
+  //let celdaAsesinatos = document.createElement("th");
 
   filaTitulos.appendChild(celdaId);
-  filaTitulos.appendChild(celdaNombre);
-  filaTitulos.appendChild(celdaApellido);
-  filaTitulos.appendChild(celdaEdad);
-  filaTitulos.appendChild(celdaAlterEgo);
-  filaTitulos.appendChild(celdaCiudad);
-  filaTitulos.appendChild(celdaPublicado);
-  filaTitulos.appendChild(celdaEnemigo);
-  filaTitulos.appendChild(celdaRobos);
-  filaTitulos.appendChild(celdaAsesinatos);
+  filaTitulos.appendChild(celdaModelo);
+  filaTitulos.appendChild(celdaAnoFab);
+  filaTitulos.appendChild(celdaVelMax);
+  filaTitulos.appendChild(celdaAltMax);
+  filaTitulos.appendChild(celdaAutonomia);
+  //filaTitulos.appendChild(celdaPublicado);
+  filaTitulos.appendChild(celdaCantPue);
+  filaTitulos.appendChild(celdaCantRue);
+  // filaTitulos.appendChild(celdaAsesinatos);
 
   celdaId.classList.add("id");
-  celdaNombre.classList.add("nombre");
-  celdaApellido.classList.add("apellido");
-  celdaEdad.classList.add("edad");
-  celdaAlterEgo.classList.add("alterEgo");
-  celdaCiudad.classList.add("ciudad");
-  celdaPublicado.classList.add("publicado");
-  celdaEnemigo.classList.add("enemigo");
-  celdaRobos.classList.add("robos");
-  celdaAsesinatos.classList.add("asesinatos");
+  celdaModelo.classList.add("modelo");
+  celdaAnoFab.classList.add("anoFab");
+  celdaVelMax.classList.add("velMax");
+  celdaAltMax.classList.add("altMax");
+  celdaAutonomia.classList.add("autonomia");
+  //celdaPublicado.classList.add("publicado");
+  celdaCantPue.classList.add("cantPue");
+  celdaCantRue.classList.add("cantRue");
+  // celdaAsesinatos.classList.add("asesinatos");
 
   celdaId.innerText = "ID";
-  celdaNombre.innerText = "Nombre";
-  celdaApellido.innerText = "Apellido";
-  celdaEdad.innerText = "Edad";
-  celdaAlterEgo.innerText = "AlterEgo";
-  celdaCiudad.innerText = "Ciudad";
-  celdaPublicado.innerText = "Publicado";
-  celdaEnemigo.innerText = "Enemigo";
-  celdaRobos.innerText = "Robos";
-  celdaAsesinatos.innerText = "Asesinatos";
+  celdaModelo.innerText = "modelo";
+  celdaAnoFab.innerText = "AnoFab";
+  celdaVelMax.innerText = "velMax";
+  celdaAltMax.innerText = "AltMax";
+  celdaAutonomia.innerText = "autonomia";
+  // celdaPublicado.innerText = "Publicado";
+  celdaCantPue.innerText = "cantPue";
+  celdaCantRue.innerText = "cantRue";
+  // celdaAsesinatos.innerText = "Asesinatos";
 
   tablaInformacion.appendChild(filaTitulos);
   let titulosColumnas = document.querySelectorAll("th");
@@ -409,44 +409,42 @@ function OrdenarColumnas(e) {
     case "id":
       arrayVehiculos = arrayVehiculos.sort((a, b) => a.id - b.id);
       break;
-    case "nombre":
+    case "modelo":
       arrayVehiculos = arrayVehiculos.sort((a, b) =>
-        a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0
+        a.modelo > b.modelo ? 1 : b.modelo > a.modelo ? -1 : 0
       );
       break;
-    case "apellido":
-      arrayVehiculos = arrayVehiculos.sort((a, b) =>
-        a.apellido > b.apellido ? 1 : b.apellido > a.apellido ? -1 : 0
-      );
+    case "anoFab":
+      arrayVehiculos = arrayVehiculos.sort((a, b) => a.anoFab - b.anoFab);
+      // a.anoFab > b.anoFab ? 1 : b.anoFab > a.anoFab ? -1 : 0
+      //);
       break;
-    case "edad":
-      arrayVehiculos = arrayVehiculos.sort((a, b) => a.edad - b.edad);
+    case "velMax":
+      arrayVehiculos = arrayVehiculos.sort((a, b) => a.velMax - b.velMax);
       break;
-    case "alterego":
-      arrayVehiculos = arrayVehiculos.sort((a, b) =>
-        a.alterEgo > b.alterEgo ? 1 : b.alterEgo > a.alterEgo ? -1 : 0
-      );
+    case "altMax":
+      arrayVehiculos = arrayVehiculos.sort((a, b) => a.altMax - b.altMax);
+      /*  a.alterEgo > b.alterEgo ? 1 : b.alterEgo > a.alterEgo ? -1 : 0
+      ); */
       break;
-    case "ciudad":
-      arrayVehiculos = arrayVehiculos.sort((a, b) =>
-        a.ciudad > b.ciudad ? 1 : b.ciudad > a.ciudad ? -1 : 0
-      );
+    case "autonomia":
+      arrayVehiculos = arrayVehiculos.sort((a, b) => a.autonomia - b.autonomia);
+      /*  a.ciudad > b.ciudad ? 1 : b.ciudad > a.ciudad ? -1 : 0
+      ); */
       break;
-    case "publicado":
+    /*   case "publicado":
       arrayVehiculos = arrayVehiculos.sort((a, b) => a.publicado - b.publicado);
-      break;
-    case "enemigo":
+      break; */
+    /*  case "enemigo":
       arrayVehiculos = arrayVehiculos.sort((a, b) =>
         a.enemigo > b.enemigo ? 1 : b.enemigo > a.enemigo ? -1 : 0
       );
+      break; */
+    case "cantPue":
+      arrayVehiculos = arrayVehiculos.sort((a, b) => a.cantPue - b.cantPue);
       break;
-    case "robos":
-      arrayVehiculos = arrayVehiculos.sort((a, b) => a.robos - b.robos);
-      break;
-    case "asesinatos":
-      arrayVehiculos = arrayVehiculos.sort(
-        (a, b) => a.asesinatos - b.asesinatos
-      );
+    case "cantRue":
+      arrayVehiculos = arrayVehiculos.sort((a, b) => a.cantRue - b.cantRue);
       break;
   }
   CargarTablas();
@@ -457,40 +455,42 @@ function FiltrarPorComboBox(element) {
   switch (comboBox.value) {
     case "todos":
       return true;
-    case "heroes":
-      return element instanceof Heroe;
-    case "villanos":
-      return element instanceof Villano;
+    case "aereo":
+      return element instanceof Aereo;
+    case "terrestre":
+      return element instanceof Terrestre;
   }
 }
 
 function FiltrarColumnas() {
   document.querySelectorAll(".id").forEach((a) => (a.style.display = "none"));
   document
-    .querySelectorAll(".nombre")
+    .querySelectorAll(".modelo")
     .forEach((a) => (a.style.display = "none"));
   document
-    .querySelectorAll(".apellido")
-    .forEach((a) => (a.style.display = "none"));
-  document.querySelectorAll(".edad").forEach((a) => (a.style.display = "none"));
-  document
-    .querySelectorAll(".alterEgo")
+    .querySelectorAll(".anoFab")
     .forEach((a) => (a.style.display = "none"));
   document
-    .querySelectorAll(".ciudad")
+    .querySelectorAll(".velMax")
     .forEach((a) => (a.style.display = "none"));
   document
+    .querySelectorAll(".altMax")
+    .forEach((a) => (a.style.display = "none"));
+  document
+    .querySelectorAll(".autonomia")
+    .forEach((a) => (a.style.display = "none"));
+  /*  document
     .querySelectorAll(".publicado")
+    .forEach((a) => (a.style.display = "none")); */
+  document
+    .querySelectorAll(".cantPue")
     .forEach((a) => (a.style.display = "none"));
   document
-    .querySelectorAll(".enemigo")
+    .querySelectorAll(".cantRue")
     .forEach((a) => (a.style.display = "none"));
-  document
-    .querySelectorAll(".robos")
-    .forEach((a) => (a.style.display = "none"));
-  document
+  /*  document
     .querySelectorAll(".asesinatos")
-    .forEach((a) => (a.style.display = "none"));
+    .forEach((a) => (a.style.display = "none")); */
   let checkBoxChecked = document.querySelectorAll(
     "input[type=checkbox]:checked"
   );
@@ -499,42 +499,42 @@ function FiltrarColumnas() {
       document
         .querySelectorAll(".id")
         .forEach((a) => (a.style.display = "inline-block"));
-    if (element.value == "nombre")
+    if (element.value == "modelo")
       document
-        .querySelectorAll(".nombre")
+        .querySelectorAll(".modelo")
         .forEach((a) => (a.style.display = "inline-block"));
-    if (element.value == "apellido")
+    if (element.value == "anoFab")
       document
-        .querySelectorAll(".apellido")
+        .querySelectorAll(".anoFab")
         .forEach((a) => (a.style.display = "inline-block"));
-    if (element.value == "edad")
+    if (element.value == "velMax")
       document
-        .querySelectorAll(".edad")
+        .querySelectorAll(".velMax")
         .forEach((a) => (a.style.display = "inline-block"));
-    if (element.value == "alterEgo")
+    if (element.value == "altMax")
       document
-        .querySelectorAll(".alterEgo")
+        .querySelectorAll(".altMax")
         .forEach((a) => (a.style.display = "inline-block"));
-    if (element.value == "ciudad")
+    if (element.value == "autonomia")
       document
-        .querySelectorAll(".ciudad")
+        .querySelectorAll(".autonomia")
         .forEach((a) => (a.style.display = "inline-block"));
-    if (element.value == "publicado")
+    /*  if (element.value == "publicado")
       document
         .querySelectorAll(".publicado")
-        .forEach((a) => (a.style.display = "inline-block"));
-    if (element.value == "enemigo")
+        .forEach((a) => (a.style.display = "inline-block")); */
+    if (element.value == "cantPue")
       document
-        .querySelectorAll(".enemigo")
+        .querySelectorAll(".cantPue")
         .forEach((a) => (a.style.display = "inline-block"));
-    if (element.value == "robos")
+    if (element.value == "cantRue")
       document
-        .querySelectorAll(".robos")
+        .querySelectorAll(".cantRue")
         .forEach((a) => (a.style.display = "inline-block"));
-    if (element.value == "asesinatos")
+    /*  if (element.value == "asesinatos")
       document
         .querySelectorAll(".asesinatos")
-        .forEach((a) => (a.style.display = "inline-block"));
+        .forEach((a) => (a.style.display = "inline-block")); */
   });
 }
 
@@ -563,13 +563,14 @@ function MostrarOcultarForm() {
 
 function OcultarCampos() {
   switch (comboBoxAlta.value) {
-    case "heroes":
-      document.querySelector(".input_alta_heroe").style.visibility = "visible";
-      document.querySelector(".input_alta_villano").style.visibility = "hidden";
+    case "aereo":
+      document.querySelector(".input_alta_aereo").style.visibility = "visible";
+      document.querySelector(".input_alta_terrestre").style.visibility =
+        "hidden";
       break;
-    case "villanos":
-      document.querySelector(".input_alta_heroe").style.visibility = "hidden";
-      document.querySelector(".input_alta_villano").style.visibility =
+    case "terrestre":
+      document.querySelector(".input_alta_aereo").style.visibility = "hidden";
+      document.querySelector(".input_alta_terrestre").style.visibility =
         "visible";
       break;
   }
