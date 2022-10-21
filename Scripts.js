@@ -38,28 +38,26 @@ botonEliminar.addEventListener("click", EliminarRegistro);
 //Métodos automaticos
 function CargaInformacionJSON() {
   arrayJson.forEach((element) => {
-    if (element.hasOwnProperty("alterego")) {
-      let nuevoHeroe = new Heroe(
+    if (element.hasOwnProperty("altMax")) {
+      let nuevoAereo = new Aereo(
         element["id"],
-        element["nombre"],
-        element["apellido"],
-        element["edad"],
-        element["alterego"],
-        element["ciudad"],
-        element["publicado"]
+        element["modelo"],
+        element["anoFab"],
+        element["velMax"],
+        element["altMax"],
+        element["autonomia"]
       );
-      arrayPersonas.push(nuevoHeroe);
+      arrayVehiculos.push(nuevoAereo);
     } else {
-      let nuevoVillano = new Villano(
+      let nuevoTerrestre = new Terrestre(
         element["id"],
-        element["nombre"],
-        element["apellido"],
-        element["edad"],
-        element["enemigo"],
-        element["robos"],
-        element["asesinatos"]
+        element["modelo"],
+        element["anoFab"],
+        element["velMax"],
+        element["cantPue"],
+        element["cantRue"]
       );
-      arrayPersonas.push(nuevoVillano);
+      arrayVehiculos.push(nuevoTerrestre);
     }
   });
   FiltrarColumnas();
@@ -70,38 +68,39 @@ function CargaInformacionJSON() {
 
 function ValidarCampos(
   id,
-  nombre,
-  apellido,
-  edad,
-  alterEgo,
-  ciudad,
-  publicado,
-  enemigo,
-  robos,
-  asesinatos
+  modelo,
+  anoFab,
+  velMax,
+  altMax,
+  autonomia,
+  cantPue,
+  cantRue
 ) {
   if (id == "" || isNaN(id)) {
     etiquetaError.style.display = "flex";
     etiquetaError.innerText = "Revisar el ID";
     return false;
   }
-  if (nombre == "" || !isNaN(nombre)) {
+  if (modelo == "" || !isNaN(modelo)) {
     etiquetaError.style.display = "flex";
-    etiquetaError.innerText = "Revisar el ID";
+    etiquetaError.innerText = "Modelo incorrecto";
     return false;
   }
-  if (apellido == "" || !isNaN(apellido)) {
+
+  if (isNaN(anoFab) || anoFab < 0) {
     etiquetaError.style.display = "flex";
-    etiquetaError.innerText = "Revisar el apellido";
+    etiquetaError.innerText = "Año de Fabricacion incorrecto";
     return false;
   }
-  if (isNaN(edad)) {
+
+  if (isNaN(velMax) || anoFab < 0) {
     etiquetaError.style.display = "flex";
-    etiquetaError.innerText = "Revisar la edad";
+    etiquetaError.innerText = "Velocidad debe ser mayor a 0";
     return false;
   }
-  if (comboBoxAlta.value == "heroes") {
-    if (alterEgo == "" || !isNaN(alterEgo)) {
+
+  if (comboBoxAlta.value == "aereo") {
+    /* if (alterEgo == "" || !isNaN(alterEgo)) {
       etiquetaError.style.display = "flex";
       etiquetaError.innerText = "Revisar el alter ego";
       return false;
@@ -110,26 +109,31 @@ function ValidarCampos(
       etiquetaError.style.display = "flex";
       etiquetaError.innerText = "Revisar la ciudad";
       return false;
-    }
-    if (publicado < 1940 || isNaN(publicado)) {
+    } */
+    if (altMax < 1940 || isNaN(altMax)) {
       etiquetaError.style.display = "flex";
-      etiquetaError.innerText = "Revisar la publicación";
+      etiquetaError.innerText = "Altura Maxima debe ser mayor a 0";
+      return false;
+    }
+    if (autonomia < 1940 || isNaN(autonomia)) {
+      etiquetaError.style.display = "flex";
+      etiquetaError.innerText = "Autonomia incorrecta";
       return false;
     }
   } else {
-    if (enemigo == "" || !isNaN(enemigo)) {
+    /*  if (enemigo == "" || !isNaN(enemigo)) {
       etiquetaError.style.display = "flex";
       etiquetaError.innerText = "Revisar el enemigo";
       return false;
-    }
-    if (robos < 1 || isNaN(robos)) {
+    } */
+    if (cantPue < 0 || isNaN(cantPue)) {
       etiquetaError.style.display = "flex";
-      etiquetaError.innerText = "Revisar los robos";
+      etiquetaError.innerText = "Cantidad de Puertas erronea";
       return false;
     }
-    if (asesinatos < 1 || isNaN(asesinatos)) {
+    if (cantRue < 0 || isNaN(cantRue)) {
       etiquetaError.style.display = "flex";
-      etiquetaError.innerText = "Revisar los asesinatos";
+      etiquetaError.innerText = "Cantidad de Ruedas erronea";
       return false;
     }
   }
@@ -140,7 +144,7 @@ function ValidarCampos(
 
 function EncontrarUltimoId() {
   let ultimoId = 0;
-  arrayPersonas.forEach((element) => {
+  arrayVehiculos.forEach((element) => {
     if (element.id > ultimoId) {
       ultimoId = element.id;
     }
@@ -152,91 +156,85 @@ function EncontrarUltimoId() {
 function EliminarRegistro() {
   let id = document.getElementById("input_id").value;
   let indice;
-  for (let index = 0; index < arrayPersonas.length; index++) {
-    if (arrayPersonas[index].id == id) {
+  for (let index = 0; index < arrayVehiculos.length; index++) {
+    if (arrayVehiculos[index].id == id) {
       indice = index;
       break;
     }
   }
-  arrayPersonas.splice(indice, 1);
+  arrayVehiculos.splice(indice, 1);
   alert("Elemento eliminado");
   MostrarOcultarForm();
 }
 
 function AltaModificacion() {
   let id = document.getElementById("input_id").value;
-  let nombre = document.getElementById("input_nombre").value;
-  let apellido = document.getElementById("input_apellido").value;
-  let edad = parseInt(document.getElementById("input_edad").value);
-  let alterEgo = document.getElementById("input_alterEgo").value;
-  let ciudad = document.getElementById("input_ciudad").value;
-  let publicado = parseInt(document.getElementById("input_publicacion").value);
-  let enemigo = document.getElementById("input_enemigo").value;
-  let robos = document.getElementById("input_robos").value;
-  let asesinatos = parseInt(document.getElementById("input_asesinatos").value);
+  let modelo = document.getElementById("input_modelo").value;
+  let anoFab = parseInt(document.getElementById("input_anoFab").value);
+  let velMax = parseInt(document.getElementById("input_velMax").value);
+  let altMax = parseInt(document.getElementById("input_altMax").value);
+  let autonomia = parseInt(document.getElementById("input_autonomia").value);
+  let cantPue = parseInt(document.getElementById("input_cantPue").value);
+  /*  let enemigo = document.getElementById("input_enemigo").value;
+  let robos = document.getElementById("input_robos").value; */
+  let cantRue = parseInt(document.getElementById("input_cantRue").value);
 
   if (
     ValidarCampos(
       EncontrarUltimoId() + 1,
-      nombre,
-      apellido,
-      edad,
-      alterEgo,
-      ciudad,
-      publicado,
-      enemigo,
-      robos,
-      asesinatos
+      modelo,
+      anoFab,
+      velMax,
+      altMax,
+      autonomia,
+      cantPue,
+      cantRue
     )
   ) {
-    if (comboBoxAlta.value == "heroes") {
+    if (comboBoxAlta.value == "aereo") {
       if (id == "") {
-        let HeroeAux = new Heroe(
+        let AereoAux = new Aereo(
           EncontrarUltimoId() + 1,
-          nombre,
-          apellido,
-          edad,
-          alterEgo,
-          ciudad,
-          publicado
+          modelo,
+          anoFab,
+          velMax,
+          altMax,
+          autonomia
         );
-        arrayPersonas.push(HeroeAux);
+        arrayVehiculos.push(AereoAux);
       } else {
-        let HeroeModificar = arrayPersonas.filter(
+        let AereoModificar = arrayVehiculos.filter(
           (element) => element.id == id
         );
-        HeroeModificar[0].ActualizarDatos(
-          nombre,
-          apellido,
-          edad,
-          alterEgo,
-          ciudad,
-          publicado
+        AereoModificar[0].ActualizarDatos(
+          modelo,
+          anoFab,
+          velMax,
+          altMax,
+          autonomia
         );
       }
     } else {
       if (id == "") {
-        let VillanoAux = new Villano(
+        let TerrestreAux = new Terrestre(
           EncontrarUltimoId() + 1,
-          nombre,
-          apellido,
-          edad,
-          enemigo,
-          robos,
-          asesinatos
+          modelo,
+          anoFab,
+          velMax,
+          cantPue,
+          cantRue
         );
-        arrayPersonas.push(VillanoAux);
+        arrayVehiculos.push(TerrestreAux);
       } else {
-        let VillanoModificar = arrayPersonas.filter((element) => {
+        let TerrestreModificar = arrayVehiculos.filter((element) => {
           if (element.id == id) return element;
         });
-        VillanoModificar[0].ActualizarDatos(
-          nombre,
-          apellido,
-          edad,
-          enemigo,
-          robos,
-          asesinatos
+        TerrestreModificar[0].ActualizarDatos(
+          modelo,
+          anoFab,
+          velMax,
+          cantPue,
+          cantRue
         );
       }
     }
@@ -249,7 +247,7 @@ function CargarTablas() {
   etiquetaError.style.display = "none";
   FiltrarColumnas();
   CargarTitulos();
-  arrayFiltrado = arrayPersonas.filter((element) =>
+  arrayFiltrado = arrayVehiculos.filter((element) =>
     FiltrarPorComboBox(element)
   );
   arrayFiltrado.map((element) => CrearRegistros(element));
@@ -258,22 +256,22 @@ function CargarTablas() {
 function AbrirFormModificacion(e) {
   let fila = e.currentTarget;
   if (fila.cells[4].innerText == "-------") {
-    comboBoxAlta.value = "villanos";
+    comboBoxAlta.value = "aereo";
   } else {
-    comboBoxAlta.value = "heroes";
+    comboBoxAlta.value = "terrestre";
   }
   comboBoxAlta.disabled = true;
   MostrarOcultarForm();
   document.getElementById("input_id").value = fila.cells[0].innerText;
-  document.getElementById("input_nombre").value = fila.cells[1].innerText;
-  document.getElementById("input_apellido").value = fila.cells[2].innerText;
-  document.getElementById("input_edad").value = fila.cells[3].innerText;
-  document.getElementById("input_alterEgo").value = fila.cells[4].innerText;
-  document.getElementById("input_ciudad").value = fila.cells[5].innerText;
-  document.getElementById("input_publicacion").value = fila.cells[6].innerText;
-  document.getElementById("input_enemigo").value = fila.cells[7].innerText;
-  document.getElementById("input_robos").value = fila.cells[8].innerText;
-  document.getElementById("input_asesinatos").value = fila.cells[9].innerText;
+  document.getElementById("input_modelo").value = fila.cells[1].innerText;
+  document.getElementById("input_anoFab").value = fila.cells[2].innerText;
+  document.getElementById("input_velMax").value = fila.cells[3].innerText;
+  document.getElementById("input_altMax").value = fila.cells[4].innerText;
+  document.getElementById("input_autonomia").value = fila.cells[5].innerText;
+  //document.getElementById("input_publicacion").value = fila.cells[6].innerText;
+  document.getElementById("input_cantPue").value = fila.cells[7].innerText;
+  document.getElementById("input_cantRue").value = fila.cells[8].innerText;
+  //document.getElementById("input_asesinatos").value = fila.cells[9].innerText;
   botonAlta.style.display = "none";
   botonCancelar.style.display = "none";
   botonModificar.style.display = "inherit";
@@ -283,52 +281,53 @@ function AbrirFormModificacion(e) {
 function CrearRegistros(element) {
   let filaTabla = document.createElement("tr");
   let celdaId = document.createElement("td");
-  let celdaNombre = document.createElement("td");
-  let celdaApellido = document.createElement("td");
-  let celdaEdad = document.createElement("td");
-  let celdaAlterEgo = document.createElement("td");
-  let celdaCiudad = document.createElement("td");
-  let celdaPublicado = document.createElement("td");
-  let celdaEnemigo = document.createElement("td");
-  let celdaRobos = document.createElement("td");
-  let celdaAsesinatos = document.createElement("td");
+  let celdaModelo = document.createElement("td");
+  let celdaAnoFab = document.createElement("td");
+  let celdaVelMax = document.createElement("td");
+  let celdaAltMax = document.createElement("td");
+  let celdaAutonomia = document.createElement("td");
+  //let celdaPublicado = document.createElement("td");
+  let celdaCantPue = document.createElement("td");
+  let celdaCantRue = document.createElement("td");
+  //let celdaAsesinatos = document.createElement("td");
   filaTabla.appendChild(celdaId);
-  filaTabla.appendChild(celdaNombre);
-  filaTabla.appendChild(celdaApellido);
-  filaTabla.appendChild(celdaEdad);
-  filaTabla.appendChild(celdaAlterEgo);
-  filaTabla.appendChild(celdaCiudad);
-  filaTabla.appendChild(celdaPublicado);
-  filaTabla.appendChild(celdaEnemigo);
-  filaTabla.appendChild(celdaRobos);
-  filaTabla.appendChild(celdaAsesinatos);
+  filaTabla.appendChild(celdaModelo);
+  filaTabla.appendChild(celdaAnoFab);
+  filaTabla.appendChild(celdaVelMax);
+  filaTabla.appendChild(celdaAltMax);
+  filaTabla.appendChild(celdaAutonomia);
+  //filaTabla.appendChild(celdaPublicado);
+  filaTabla.appendChild(celdaCantPue);
+  filaTabla.appendChild(celdaCantRue);
+  //filaTabla.appendChild(celdaAsesinatos);
   filaTabla.addEventListener("dblclick", AbrirFormModificacion);
 
   celdaId.innerText = element.id;
-  celdaNombre.innerText = element.nombre;
-  celdaApellido.innerText = element.apellido;
-  celdaEdad.innerText = element.edad;
-  celdaAlterEgo.innerText =
-    element instanceof Heroe ? element.alterEgo : "-------";
-  celdaCiudad.innerText = element instanceof Heroe ? element.ciudad : "-------";
-  celdaPublicado.innerText =
-    element instanceof Heroe ? element.publicado : "-------";
-  celdaEnemigo.innerText =
-    element instanceof Villano ? element.enemigo : "-------";
-  celdaRobos.innerText = element instanceof Villano ? element.robos : "-------";
-  celdaAsesinatos.innerText =
-    element instanceof Villano ? element.asesinatos : "-------";
+  celdaModelo.innerText = element.modelo;
+  celdaAnoFab.innerText = element.anoFab;
+  celdaVelMax.innerText = element.velMax;
+  celdaAltMax.innerText = element instanceof Aereo ? element.altMax : "-------";
+  celdaAutonomia.innerText =
+    element instanceof Aereo ? element.autonomia : "-------";
+  /* celdaPublicado.innerText =
+    element instanceof Aereo ? element.publicado : "-------"; */
+  celdaCantPue.innerText =
+    element instanceof Terrestre ? element.cantPue : "-------";
+  celdaCantRue.innerText =
+    element instanceof Terrestre ? element.cantPue : "-------";
+  /*  celdaAsesinatos.innerText =
+    element instanceof Villano ? element.asesinatos : "-------"; */
 
   celdaId.classList.add("id");
-  celdaNombre.classList.add("nombre");
-  celdaApellido.classList.add("apellido");
-  celdaEdad.classList.add("edad");
-  celdaAlterEgo.classList.add("alterEgo");
-  celdaCiudad.classList.add("ciudad");
-  celdaPublicado.classList.add("publicado");
-  celdaEnemigo.classList.add("enemigo");
-  celdaRobos.classList.add("robos");
-  celdaAsesinatos.classList.add("asesinatos");
+  celdaModelo.classList.add("modelo");
+  celdaAnoFab.classList.add("anoFab");
+  celdaVelMax.classList.add("velMax");
+  celdaAltMax.classList.add("altMax");
+  celdaAutonomia.classList.add("autonomia");
+  //celdaPublicado.classList.add("publicado");
+  celdaCantPue.classList.add("cantPue");
+  celdaCantRue.classList.add("cantRue");
+  //celdaAsesinatos.classList.add("asesinatos");
 
   tablaInformacion.appendChild(filaTabla);
 }
@@ -408,44 +407,46 @@ function OrdenarColumnas(e) {
 
   switch (criterio) {
     case "id":
-      arrayPersonas = arrayPersonas.sort((a, b) => a.id - b.id);
+      arrayVehiculos = arrayVehiculos.sort((a, b) => a.id - b.id);
       break;
     case "nombre":
-      arrayPersonas = arrayPersonas.sort((a, b) =>
+      arrayVehiculos = arrayVehiculos.sort((a, b) =>
         a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0
       );
       break;
     case "apellido":
-      arrayPersonas = arrayPersonas.sort((a, b) =>
+      arrayVehiculos = arrayVehiculos.sort((a, b) =>
         a.apellido > b.apellido ? 1 : b.apellido > a.apellido ? -1 : 0
       );
       break;
     case "edad":
-      arrayPersonas = arrayPersonas.sort((a, b) => a.edad - b.edad);
+      arrayVehiculos = arrayVehiculos.sort((a, b) => a.edad - b.edad);
       break;
     case "alterego":
-      arrayPersonas = arrayPersonas.sort((a, b) =>
+      arrayVehiculos = arrayVehiculos.sort((a, b) =>
         a.alterEgo > b.alterEgo ? 1 : b.alterEgo > a.alterEgo ? -1 : 0
       );
       break;
     case "ciudad":
-      arrayPersonas = arrayPersonas.sort((a, b) =>
+      arrayVehiculos = arrayVehiculos.sort((a, b) =>
         a.ciudad > b.ciudad ? 1 : b.ciudad > a.ciudad ? -1 : 0
       );
       break;
     case "publicado":
-      arrayPersonas = arrayPersonas.sort((a, b) => a.publicado - b.publicado);
+      arrayVehiculos = arrayVehiculos.sort((a, b) => a.publicado - b.publicado);
       break;
     case "enemigo":
-      arrayPersonas = arrayPersonas.sort((a, b) =>
+      arrayVehiculos = arrayVehiculos.sort((a, b) =>
         a.enemigo > b.enemigo ? 1 : b.enemigo > a.enemigo ? -1 : 0
       );
       break;
     case "robos":
-      arrayPersonas = arrayPersonas.sort((a, b) => a.robos - b.robos);
+      arrayVehiculos = arrayVehiculos.sort((a, b) => a.robos - b.robos);
       break;
     case "asesinatos":
-      arrayPersonas = arrayPersonas.sort((a, b) => a.asesinatos - b.asesinatos);
+      arrayVehiculos = arrayVehiculos.sort(
+        (a, b) => a.asesinatos - b.asesinatos
+      );
       break;
   }
   CargarTablas();
