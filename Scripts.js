@@ -385,6 +385,7 @@ function OrdenarColumnas(e) {
       arrayVehiculos = arrayVehiculos.sort((a, b) => a.cantPue - b.cantPue);
       break;
     case "cantrue":
+      console.log("entra");
       arrayVehiculos = arrayVehiculos.sort((a, b) => a.cantRue - b.cantRue);
       break;
   }
