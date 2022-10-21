@@ -93,12 +93,12 @@ function ValidarCampos(
   }
 
   if (comboBoxAlta.value == "aereo") {
-    if (altMax < 1940 || isNaN(altMax)) {
+    if (altMax < 0 || isNaN(altMax)) {
       etiquetaError.style.display = "flex";
       etiquetaError.innerText = "Altura Maxima debe ser mayor a 0";
       return false;
     }
-    if (autonomia < 1940 || isNaN(autonomia)) {
+    if (autonomia < 0 || isNaN(autonomia)) {
       etiquetaError.style.display = "flex";
       etiquetaError.innerText = "Autonomia incorrecta";
       return false;
@@ -231,7 +231,7 @@ function CargarTablas() {
 
 function AbrirFormModificacion(e) {
   let fila = e.currentTarget;
-  if (fila.cells[4].innerText == "-------") {
+  if (fila.cells[3].innerText == "-------") {
     comboBoxAlta.value = "aereo";
   } else {
     comboBoxAlta.value = "terrestre";
